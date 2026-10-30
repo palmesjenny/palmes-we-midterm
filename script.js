@@ -1,37 +1,32 @@
 
-const WHATSAPP_NUMBER = "639XXXXXXXXX";
+// ==============================
+// DARK MODE FUNCTION
+// ==============================
 
-// Automatically update the copyright year
-document.addEventListener("DOMContentLoaded", () => {
-  const yearElement = document.getElementById("year");
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
 
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
+  const button = document.querySelector(".dark-toggle");
+
+  if (document.body.classList.contains("dark-mode")) {
+    button.innerHTML = "☀️ Light Mode";
+  } else {
+    button.innerHTML = "🌙 Dark Mode";
   }
+}
 
-  // Smooth scrolling for navigation links
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener("click", event => {
-      const targetId = link.getAttribute("href");
 
-      if (!targetId || targetId === "#") return;
+// ==============================
+// WHATSAPP ORDER FUNCTION
+// ==============================
 
-      const target = document.querySelector(targetId);
+const WHATSAPP_NUMBER = "639171234567";
 
-      if (target) {
-        event.preventDefault();
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-  });
-});
-
-// Send a message through WhatsApp
-function sendWhatsApp(message) {
-  if (!/^639\d{9}$/.test(WHATSAPP_NUMBER)) {
-    alert("Please configure your WhatsApp number in script.js.");
-    return;
-  }
+function order(productName) {
+  const message =
+    "Hello Petal & Pearl! I would like to order " +
+    productName +
+    ". Please share the ordering details.";
 
   const url =
     "https://wa.me/" +
@@ -39,24 +34,5 @@ function sendWhatsApp(message) {
     "?text=" +
     encodeURIComponent(message);
 
-  window.open(url, "_blank", "noopener,noreferrer");
-}
-
-// Order a specific bouquet
-function order(productName) {
-  const message =
-    `Hello Petal & Pearl! 🌸\n\n` +
-    `I would like to order the "${productName}" bouquet.\n` +
-    `Could you please provide the ordering details?`;
-
-  sendWhatsApp(message);
-}
-
-// Contact the floral boutique
-function contactUs(event) {
-  if (event) event.preventDefault();
-
-  sendWhatsApp(
-    "Hello Petal & Pearl! 🌷 I would like to inquire about your floral arrangements."
-  );
+  window.open(url, "_blank");
 }
